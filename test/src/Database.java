@@ -117,7 +117,7 @@ public class Database {
 	}
 	
 	/**
-	 * Get the previously stored values for the name
+	 * Get the previously stored values for the name.
 	 * @param name
 	 * @return
 	 */
