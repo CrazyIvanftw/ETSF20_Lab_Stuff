@@ -88,8 +88,10 @@ public class Survey extends HttpServlet {
         			out.println(formGenerator.projectDataRequestForm());
         		}
         		else {
-        			out.println("That was not a valid name. Maybe it is already taken by someone else.");
-        			out.println(formGenerator.nameRequestForm());        			
+        			//XXX here is the place for db.getUserValues(String name)
+        			out.println("Previous responses found: ");
+        			out.println(formGenerator.nameRequestForm()); 
+        			out.println(db.getUserValues(name));
         		}
         	}else{ // name was null, probably because no form has[n't] been filled out yet. Display form.
         		out.println(formGenerator.nameRequestForm());

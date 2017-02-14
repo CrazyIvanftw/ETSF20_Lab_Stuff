@@ -14,7 +14,7 @@ public class FormGenerator {
      * Form for requesting user name
      */
     public String nameRequestForm() {
-    	String html = "Please enter your name";
+    	String html = "Please enter a new name.";
     	html += "<p> <form name=" + formElement("input");
     	//html += " action=" + formElement(myURL); 
     	html += " method=" + formElement("get");
