@@ -20,6 +20,7 @@ public class Survey extends HttpServlet {
 	// Define states 
 	private static final int NEED_NAME = 0;
 	private static final int NEED_PROJECT_DATA = 2;
+	private static final int NEED_PROJECT_INFO = 1;
 	
 	private FormGenerator formGenerator = new FormGenerator(); 
 	
@@ -84,8 +85,9 @@ public class Survey extends HttpServlet {
         	if (name != null) {
         		if (nameOk(name)) {
         			session.setAttribute("name", name);  // save the name in the session
-        			state = NEED_PROJECT_DATA;
-        			out.println(formGenerator.projectDataRequestForm());
+        			state = NEED_PROJECT_INFO;
+        			out.println(formGenerator.randomQuestionRequestForm());
+        			//out.println(formGenerator.projectDataRequestForm());
         		}
         		else {
         			//XXX here is the place for db.getUserValues(String name)
@@ -97,6 +99,31 @@ public class Survey extends HttpServlet {
         		out.println(formGenerator.nameRequestForm());
         	}
         	break;
+        	
+        case NEED_PROJECT_INFO:
+        	name = (String) session.getAttribute("name");
+        	String question1 = request.getParameter("q1");
+        	String question2 = request.getParameter("q2");
+        	String question3 = request.getParameter("q3");
+        	if (question1!=null || question2!=null || question3!=null){ //not null
+        	question1 = question1.trim();
+        	question2 = question2.trim();
+        	question3 = question3.trim();
+        	if (question1=="" || question2=="" || question3==""){ //if empty
+        		out.println(formGenerator.randomQuestionRequestForm());
+        		out.println("Try Again");
+        	}else{//if not empty
+        		db.projectSet(name, question1, question2, question3);
+        		out.println(formGenerator.projectDataRequestForm());
+        		state = NEED_PROJECT_DATA;
+        	}
+        	}else{//if null
+        		out.println(formGenerator.randomQuestionRequestForm());
+        		out.println("Try Again");
+        	}
+        	break;
+        	
+        	
         case NEED_PROJECT_DATA:
         	int s11 = 0, s12 = 0, s13 = 0, s14 = 0;
         	name = (String) session.getAttribute("name");

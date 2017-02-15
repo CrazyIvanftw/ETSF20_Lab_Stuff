@@ -44,5 +44,42 @@ public class FormGenerator {
     	html += "<p> <input type=" + formElement("submit") + "value=" + formElement("Submit") + '>';
     	return html;
     }
+    
+    /**
+     * TODO
+     * @return
+     */
+    public String randomQuestionRequestForm() {
+    	String[][] questions = {
+    			{"Project Name:", "q1"},
+    			{"Your Project Role:", "q2"},
+    			{"Project Goal:", "q3"}		
+    	};
+    	String html = "<p>Please describe the project";
+    	html += "<p> <form name='questions' method='get'>";
+    	for (int i=0; i<3; i++) {
+    		html += "<p> " + questions[i][0];
+    		html += " <input type="+ formElement("text") + "name =" + questions[i][1]  + '>';
+    	}
+    	html += "<p> <input type='submit' value='Submit'>";
+    	//html += "<p> </form>";
+    	return html;
+    	
+    }
+//    public String randomQuestionRequestForm() {
+//    	String[][] variables = {
+//    			{"Project Name:", "p1"},
+//    			{"Your Project Roll:", "p2"},
+//    			{"Project Goal:", "p3"}		
+//    	};
+//    	String html = "<p>Please describe the project";
+//    	html += "<p> <form name=" + formElement("input3");
+//    	html += " method=" + formElement("get");
+//    	for(int i = 0 ; i < 3 ; i++){
+//    		html += "<p> " + variables[i][0];
+//    		html += ": <input type="+ formElement("text") + "name =" + variables[i][1]  + '>';
+//    	}
+//    	return null;
+//    }
 	
 }

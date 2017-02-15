@@ -135,15 +135,54 @@ public class Database {
 				int v3 = values.getInt(4);
 				int v4 = values.getInt(5);
 				returnValueString = 
-					"Op-perf: " + v1 
-					+ " Tech-perf: " + v2 
-					+ " Proj-sched: " + v3 
-					+ " Budget: " + v4 ;
+					"<p> Op-perf: " + v1 
+					+ "<p>  Tech-perf: " + v2 
+					+ "<p>  Proj-sched: " + v3 
+					+ "<p>  Budget: " + v4 ;
 			}
 			return returnValueString;
 		}catch (SQLException e){
 			return "Error: While handsome, Greg seems to have missed something.";
 		}
 	}
-
+	
+	/**
+	 * Inserts project answers into table 'projects'
+	 */
+	public boolean projectSet(String name, String q1, String q2, String q3){
+	String projectSet = "insert into projects values(?, ?, ?, ?)";
+	PreparedStatement pSet = null;
+	try{
+		pSet = conn.prepareStatement(projectSet);
+		pSet.setString(1, name);
+		pSet.setString(2, q1);
+		pSet.setString(3, q2);
+		pSet.setString(4, q3);
+		if(pSet.executeUpdate() ==1){
+			return true;
+		}
+	}catch (SQLException e){
+		System.out.println(e.getMessage());
+		return false;
+	}
+	return false;
+	}
+	
+	/**
+	 * TODO get data from database
+	 */
+	public ResultSet getDatabase(){
+		String join = "select* from responses natural join projects";
+		PreparedStatement database = null;
+		try{
+			database = conn.prepareStatement(join);
+			ResultSet rs = database.executeQuery();
+			return rs;
+		}catch (SQLException e){
+			return null;
+		}
+	}
+	//public String projectGet(String name){
+	//	String projectGet = "select * from projects"
+	//}
 }
